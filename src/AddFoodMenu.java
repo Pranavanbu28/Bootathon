@@ -10,18 +10,11 @@ public class AddFoodMenu extends JFrame{
 		
 		JLabel title = new JLabel("Add Food");
 		title.setBounds(180, 40, 110, 20);
-		// title.setForeground(Color.yellow);
 		title.setFont(f1);
 		add(title);
 		
-		// Color class for Purple
-		// Color purp = new Color(122,136,222);
-		// this.getContentPane().setBackground(purp);
-		
 		JLabel foodName = new JLabel("Food Name:");
 		foodName.setBounds(100, 75, 100, 30);
-		// foodName.setForeground(Color.yellow);
-		// foodName.setFont(f1);
 		add(foodName);
 		
 		JTextField nameInput = new JTextField();
@@ -30,8 +23,6 @@ public class AddFoodMenu extends JFrame{
 
 		JLabel foodPrice = new JLabel("Price:");
 		foodPrice.setBounds(100, 125, 100, 30);
-		// foodPrice.setForeground(Color.yellow);
-		// foodPrice.setFont(f1);
 		add(foodPrice);
 		
 		JTextField priceInput = new JTextField();
@@ -40,7 +31,6 @@ public class AddFoodMenu extends JFrame{
 
 		JButton addFood = new JButton("Add");
 		addFood.setBounds(80, 190, 100, 40);
-		// addFood.setBackground(Color.yellow);
 		add(addFood);
 		addFood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -108,8 +98,4 @@ public class AddFoodMenu extends JFrame{
 		
 		
 	}
-	// public static void main(String[] args) {
-	// 	new AddFoodInMenu();
-	// }
-
 }

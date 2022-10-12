@@ -1,8 +1,6 @@
-import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.table.*;
 
 public class DisplayDetails extends JFrame {
 	DisplayDetails(User currentUser){
@@ -10,21 +8,6 @@ public class DisplayDetails extends JFrame {
 		JLabel pageTitle = new JLabel("Profile");
 		pageTitle.setBounds(200, 40, 100, 30);
 		add(pageTitle);
-
-		// DefaultTableModel model = new DefaultTableModel();
-		// JTable table = new JTable(model);
-		// model.addColumn("Category");
-      	// model.addColumn("Details");
-
-        // model.addRow(new Object[]{"UserID", currentUser.id});
-		// model.addRow(new Object[]{"Name", currentUser.name});
-		// model.addRow(new Object[]{"Mobile Number", currentUser.mobile});
-		// model.addRow(new Object[]{"Email Address", currentUser.mail});
-		// String address = currentUser.address.houseNo + "," + currentUser.address.street + "," + currentUser.address.city + "," + currentUser.address.pincode;
-		// model.addRow(new Object[]{"Residential Address", address});
-
-		// table.setBounds(50, 100, 400, 100);
-		// add(table);
 
 		JLabel id = new JLabel("ID: ");
 		id.setBounds(50,80,150,40);
@@ -78,7 +61,7 @@ public class DisplayDetails extends JFrame {
 		backButton.setBounds(190, 280, 100, 40);
 		backButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if(currentUser.userType == "customer"){
+				if(currentUser.userType.equals("customer")){
 					new CustomerPage(currentUser);
 					dispose();
 				} else {

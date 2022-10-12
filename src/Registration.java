@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 import java.util.regex.Pattern;
@@ -19,13 +18,6 @@ public class Registration extends JFrame{
 	JButton register;
 	
 	Registration(){		
-		//Fonts
-		// Font  font1  = new Font(Font.DIALOG,  Font.BOLD, 25);
-		// Font  font3  = new Font(Font.DIALOG,  Font.BOLD, 15);
-		
-		//color
-		// Color purp = new Color(122,136,222);
-
 		//Labels
 		heading = new JLabel("Sign Up");
 		name = new JLabel("Name: ");
@@ -65,33 +57,6 @@ public class Registration extends JFrame{
 		//Button
 		register = new JButton("Register");
 		register.setBounds(100,440,100,40);
-
-		// register.setBackground(Color.yellow);
-		// register.setForeground(purp);
-		
-		//setting fonts
-		// heading.setFont(font1);
-		// register.setFont(font3);
-		// name.setFont(font3);
-		// address.setFont(font3);
-		// mobile.setFont(font3);
-		// password.setFont(font3);
-		
-		//setting color
-		// this.getContentPane().setBackground(purp);
-		// name.setForeground(Color.YELLOW);
-		// password.setForeground(Color.YELLOW);
-		// mobile.setForeground(Color.YELLOW);
-		// address.setForeground(Color.YELLOW);
-		// email.setForeground(Color.YELLOW);
-		// heading.setForeground(Color.YELLOW);
-		
-		//padding
-		// nameInput.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		// emailInput.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		// addressInput.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		// mobileInput.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		// passwordInput.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		
 		//adding the components to the frame
 		add(heading);
@@ -148,8 +113,6 @@ public class Registration extends JFrame{
 						receivedUserType = "customer";
 					} else if(staffButton.isSelected()){
 						receivedUserType = "staff";
-					} else {
-						receivedUserType = "unknown";
 					}
 
 					User newUser = new User(

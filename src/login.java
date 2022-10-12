@@ -41,16 +41,17 @@ public class Login{
 					username.setText("");
 					username.requestFocus();
 				}
-				else if(!Pattern.matches("^(?=.*[0-9])"+ "(?=.*[a-z])(?=.*[A-Z])"+ "(?=.*[@#$%^&+=])"+ "(?=\\S+$).{8,20}$", String.valueOf(passwordInput.getPassword()))) {
+				else if(!Pattern.matches("^(?=.*[\\d])"+ "(?=.*[a-z])(?=.*[A-Z])"+ "(?=.*[@#$%^&+=])"+ "(?=\\S+$).{8,20}$", String.valueOf(passwordInput.getPassword()))) {
 					JOptionPane.showMessageDialog(frame, "Password Format Invalid!", "Alert", JOptionPane.WARNING_MESSAGE);
 					passwordInput.setText("");
 					passwordInput.requestFocus();
 				}
-				else if(customerRadio.isSelected()==false && staffRadio.isSelected()==false) {
+				else if(!customerRadio.isSelected() && !staffRadio.isSelected()){
 					JOptionPane.showMessageDialog(frame, "Select an option!", "Alert", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					String name = usernameInput.getText(), pwd = new String(passwordInput.getPassword());
+					String name = usernameInput.getText();
+					String pwd = new String(passwordInput.getPassword());
 					User currentUser;
 					if(customerRadio.isSelected() && (currentUser = authorizeUser("customer", name, pwd))!=null) {
 						new CustomerPage(currentUser);
@@ -122,7 +123,7 @@ public class Login{
 		    	statement2.setInt(1, addressID); 
 				rs2 = statement2.executeQuery();
 				rs2.next();
-				String address = String.valueOf(String.valueOf(rs2.getInt(2))  + "," + rs2.getString(3)  + "," + rs2.getString(4) + "," + String.valueOf(rs2.getInt(5)));
+				String address = rs2.getInt(2)  + "," + rs2.getString(3)  + "," + rs2.getString(4) + "," + rs2.getInt(5);
 		    	return new User(id, customerName, pwd, mobile, mail, address, table);
 		    }
 		    return null;

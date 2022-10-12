@@ -9,16 +9,11 @@ public class StaffPage extends JFrame{
 		
 		JLabel title = new JLabel("Welcome " + currentUser.name);
 		title.setBounds(20, 20, 300, 20);
-		// title.setForeground(Color.yellow);
 		title.setFont(f1);
 		add(title);
-		
-		// Color purp = new Color(122,136,222);
-		// this.getContentPane().setBackground(purp);
 
 		JButton addFood = new JButton("Add Food");
 		addFood.setBounds(60, 140, 120, 40);
-		// addFood.setBackground(Color.yellow);
 		add(addFood);
 		addFood.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -29,7 +24,6 @@ public class StaffPage extends JFrame{
 		
 		JButton showMenu = new JButton("Show Menu");
 		showMenu.setBounds(200, 140, 120, 40);
-		// showMenu.setBackground(Color.yellow);
 		add(showMenu);
 		showMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -40,7 +34,6 @@ public class StaffPage extends JFrame{
 
 		JButton displayDetails = new JButton("Display Details");
 		displayDetails.setBounds(130, 200, 130, 40);
-		// displayDetails.setBackground(Color.yellow);
 		add(displayDetails);
 		displayDetails.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -65,7 +58,4 @@ public class StaffPage extends JFrame{
 		setSize(400, 300);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-	// public static void main(String[] args) {
-	// 	new StaffPage();
-	// }
 }
