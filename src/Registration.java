@@ -180,6 +180,7 @@ public class Registration extends JFrame{
 		add(backButton);
 
 		setLayout(null);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500,550);

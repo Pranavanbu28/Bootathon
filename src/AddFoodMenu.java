@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class AddFoodInMenu extends JFrame{
-	AddFoodInMenu(User currentUser){
+public class AddFoodMenu extends JFrame{
+	AddFoodMenu(User currentUser){
 		Font  f1  = new Font(Font.DIALOG,  Font.BOLD, 16);
 		
 		JLabel title = new JLabel("Add Food");
@@ -101,6 +101,7 @@ public class AddFoodInMenu extends JFrame{
 		add(backButton);
 		
 		setLayout(null);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setSize(400, 300);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

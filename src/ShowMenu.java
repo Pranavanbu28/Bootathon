@@ -56,6 +56,7 @@ public class ShowMenu extends JFrame{
 		add(backButton);
 
 		setLayout(null);
+        setLocationRelativeTo(null);
 		setSize(500,400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);

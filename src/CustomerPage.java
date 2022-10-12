@@ -47,6 +47,7 @@ public class CustomerPage extends JFrame{
 		add(backButton);
 		
 		setLayout(null);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setSize(400, 300);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -49,10 +49,14 @@ public class DisplayDetails extends JFrame {
 		
 		JLabel setmail = new JLabel(currentUser.mail);
 		setmail.setBounds(220,170,150,40);
-		
-		String address = currentUser.address.houseNo + "," + currentUser.address.street + "," + currentUser.address.city + "," + currentUser.address.pincode;
+
+
+		String address = currentUser.address.houseNo + ", " + currentUser.address.street + ","; 
+		String address2 = currentUser.address.city + ", " + currentUser.address.pincode;
 		JLabel setaddress = new JLabel(address);
+		JLabel setaddress2 = new JLabel(address2);
 		setaddress.setBounds(220,200,150,40);
+		setaddress2.setBounds(220,217,150,40);
 
 
 		add(id);
@@ -67,10 +71,11 @@ public class DisplayDetails extends JFrame {
 		add(setmobile);
 		add(setmail);
 		add(setaddress);
+		add(setaddress2);
 
 
 		JButton backButton = new JButton("Back");
-		backButton.setBounds(200, 250, 100, 40);
+		backButton.setBounds(190, 280, 100, 40);
 		backButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(currentUser.userType == "customer"){
@@ -86,6 +91,7 @@ public class DisplayDetails extends JFrame {
 
 		setLayout(null);
 		setSize(500,400);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}

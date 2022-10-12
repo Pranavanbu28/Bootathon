@@ -22,7 +22,7 @@ public class StaffPage extends JFrame{
 		add(addFood);
 		addFood.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new AddFoodInMenu(currentUser);
+				new AddFoodMenu(currentUser);
 				dispose();
 			}
 		});
@@ -60,6 +60,7 @@ public class StaffPage extends JFrame{
 		add(backButton);
 		
 		setLayout(null);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setSize(400, 300);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

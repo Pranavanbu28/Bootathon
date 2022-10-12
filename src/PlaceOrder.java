@@ -8,6 +8,7 @@ public class PlaceOrder extends JFrame{
 		
 
 		setLayout(null);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500,550);

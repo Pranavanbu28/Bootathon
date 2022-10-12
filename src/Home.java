@@ -36,7 +36,9 @@ public class Home{
 		frame.add(register);
 		frame.add(login);
 		frame.setSize(500,400);  
-		frame.setLayout(null);  
+		frame.setLayout(null);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setVisible(true);  
 	}
 	public static void main(String args[]){  
