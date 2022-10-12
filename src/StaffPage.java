@@ -16,20 +16,38 @@ public class StaffPage extends JFrame{
 		// Color purp = new Color(122,136,222);
 		// this.getContentPane().setBackground(purp);
 
-		JButton orderFood = new JButton("Add Food");
-		orderFood.setBounds(60, 140, 120, 40);
-		// orderFood.setBackground(Color.yellow);
-		add(orderFood);
+		JButton addFood = new JButton("Add Food");
+		addFood.setBounds(60, 140, 120, 40);
+		// addFood.setBackground(Color.yellow);
+		add(addFood);
+		addFood.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new AddFoodInMenu(currentUser);
+				dispose();
+			}
+		});
 		
-		JButton orderHistory = new JButton("Show Menu");
-		orderHistory.setBounds(200, 140, 120, 40);
-		// orderHistory.setBackground(Color.yellow);
-		add(orderHistory);
+		JButton showMenu = new JButton("Show Menu");
+		showMenu.setBounds(200, 140, 120, 40);
+		// showMenu.setBackground(Color.yellow);
+		add(showMenu);
+		showMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new ShowMenu(currentUser);
+				dispose();
+			}
+		});
 
 		JButton displayDetails = new JButton("Display Details");
 		displayDetails.setBounds(130, 200, 130, 40);
 		// displayDetails.setBackground(Color.yellow);
 		add(displayDetails);
+		displayDetails.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new DisplayDetails(currentUser);
+				dispose();
+			}
+		});
 		
 		JButton backButton = new JButton("Back");
 		backButton.setBounds(300, 20, 70, 25);

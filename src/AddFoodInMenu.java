@@ -5,23 +5,23 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class AddFoodInMenu extends JFrame{
-	AddFoodInMenu(){
+	AddFoodInMenu(User currentUser){
 		Font  f1  = new Font(Font.DIALOG,  Font.BOLD, 16);
 		
-		JLabel title = new JLabel("Menu");
-		title.setBounds(180, 40, 80, 20);
-		title.setForeground(Color.yellow);
+		JLabel title = new JLabel("Add Food");
+		title.setBounds(180, 40, 110, 20);
+		// title.setForeground(Color.yellow);
 		title.setFont(f1);
 		add(title);
 		
 		// Color class for Purple
-		Color purp = new Color(122,136,222);
-		this.getContentPane().setBackground(purp);
+		// Color purp = new Color(122,136,222);
+		// this.getContentPane().setBackground(purp);
 		
 		JLabel foodName = new JLabel("Food Name:");
 		foodName.setBounds(100, 75, 100, 30);
-		foodName.setForeground(Color.yellow);
-		foodName.setFont(f1);
+		// foodName.setForeground(Color.yellow);
+		// foodName.setFont(f1);
 		add(foodName);
 		
 		JTextField nameInput = new JTextField();
@@ -30,8 +30,8 @@ public class AddFoodInMenu extends JFrame{
 
 		JLabel foodPrice = new JLabel("Price:");
 		foodPrice.setBounds(100, 125, 100, 30);
-		foodPrice.setForeground(Color.yellow);
-		foodPrice.setFont(f1);
+		// foodPrice.setForeground(Color.yellow);
+		// foodPrice.setFont(f1);
 		add(foodPrice);
 		
 		JTextField priceInput = new JTextField();
@@ -39,8 +39,8 @@ public class AddFoodInMenu extends JFrame{
 		add(priceInput);
 
 		JButton addFood = new JButton("Add");
-		addFood.setBounds(180, 190, 100, 40);
-		addFood.setBackground(Color.yellow);
+		addFood.setBounds(80, 190, 100, 40);
+		// addFood.setBackground(Color.yellow);
 		add(addFood);
 		addFood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -89,6 +89,16 @@ public class AddFoodInMenu extends JFrame{
 				}
 			}
 		}); 
+
+		JButton backButton = new JButton("Back");
+		backButton.setBounds(220, 190, 100, 40);
+		backButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+                new StaffPage(currentUser);
+                dispose();
+			}
+		});
+		add(backButton);
 		
 		setLayout(null);
 		setVisible(true);
@@ -97,8 +107,8 @@ public class AddFoodInMenu extends JFrame{
 		
 		
 	}
-	public static void main(String[] args) {
-		new AddFoodInMenu();
-	}
+	// public static void main(String[] args) {
+	// 	new AddFoodInMenu();
+	// }
 
 }

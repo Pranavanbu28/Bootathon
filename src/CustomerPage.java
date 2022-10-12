@@ -8,7 +8,7 @@ public class CustomerPage extends JFrame{
 		
 		JLabel title = new JLabel("Welcome " + currentUser.name);
 		title.setBounds(20, 20, 300, 20);
-		title.setForeground(Color.yellow);
+		// title.setForeground(Color.yellow);
 		title.setFont(f1);
 		add(title);
 		
