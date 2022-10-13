@@ -87,8 +87,8 @@ public class Registration extends JFrame{
 					emailInput.setText("");
 					emailInput.requestFocus();
 				}
-				else if(addressInput.getText()==null) {
-					JOptionPane.showMessageDialog(null, "Please enter valid addressInput.", "Alert", JOptionPane.WARNING_MESSAGE);
+				else if(addressInput.getText()==null || (addressInput.getText().length() - addressInput.getText().replace(",", "").length()) != 3) {
+					JOptionPane.showMessageDialog(null, "Please enter valid address!", "Alert", JOptionPane.WARNING_MESSAGE);
 					addressInput.setText("");
 					addressInput.requestFocus();
 				}
@@ -108,12 +108,7 @@ public class Registration extends JFrame{
 					String receivedMobile = mobileInput.getText();
 					String receivedMail = emailInput.getText();
 					String receivedAddress = addressInput.getText();
-					String receivedUserType = null;
-					if(customerButton.isSelected()){
-						receivedUserType = "customer";
-					} else if(staffButton.isSelected()){
-						receivedUserType = "staff";
-					}
+					String receivedUserType = customerButton.isSelected() ? "customer" : "staff";
 
 					User newUser = new User(
 						0,
