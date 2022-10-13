@@ -18,6 +18,12 @@ public class CustomerPage extends JFrame{
 		JButton orderHistory = new JButton("Order History");
 		orderHistory.setBounds(200, 140, 120, 40);
 		add(orderHistory);
+		orderHistory.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new OrderHistory(currentUser);
+				dispose();
+			}
+		});
 
 		JButton displayDetails = new JButton("Display Details");
 		displayDetails.setBounds(130, 200, 130, 40);
@@ -40,9 +46,9 @@ public class CustomerPage extends JFrame{
 		add(backButton);
 		
 		setLayout(null);
-		setLocationRelativeTo(null);
-		setVisible(true);
 		setSize(400, 300);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
 	}
 }

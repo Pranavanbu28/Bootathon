@@ -4,36 +4,50 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.sql.*;
 
-public class ShowMenu extends JFrame{
-    ShowMenu(User currentUser){
+public class OrderHistory extends JFrame{
+    OrderHistory(User currentUser){
         Font  f1  = new Font(Font.DIALOG,  Font.BOLD, 16);
-		JLabel title = new JLabel("Menu");
-		title.setBounds(200, 22, 80, 20);
+		JLabel title = new JLabel("Order History");
+		title.setBounds(200, 22, 200, 20);
 		title.setFont(f1);
 		add(title);
 
 		DefaultTableModel model = new DefaultTableModel();
 		JTable table = new JTable(model);
-		model.addColumn("ID");
-      	model.addColumn("Name");
+		model.addColumn("Order ID");
+      	model.addColumn("Food");
       	model.addColumn("Price");
 
         PreparedStatement statement = null;
-        Statement getMenu = null;
+        Statement getOrderID = null;
+        Statement getFood = null;
+        Statement getFromMenu = null;
         Connection conn = null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
 		    conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_management","root", "magesh123");
-            getMenu = conn.createStatement();
-            ResultSet menu = getMenu.executeQuery("select * from menu");
-            while(menu.next()){
-                model.addRow(new Object[]{menu.getInt(1), menu.getString(2), menu.getInt(3)});
+            getOrderID = conn.createStatement();
+            ResultSet allOrders = getOrderID.executeQuery("select order_id, total_price from orders where customer = " + currentUser.id);
+            while(allOrders.next()){
+                getFood = conn.createStatement();
+                ResultSet foodID = getFood.executeQuery("select food from order_items where order_id = "+allOrders.getInt(1));
+                StringBuilder allFood = new StringBuilder();
+                while(foodID.next()){
+                    int currentFood = foodID.getInt(1);
+                    getFromMenu = conn.createStatement();
+                    ResultSet fromMenu = getFromMenu.executeQuery("select food_name from menu where food_id = " + currentFood);
+                    fromMenu.next();
+                    allFood.append(fromMenu.getString(1)+" ");
+                }
+                model.addRow(new Object[]{allOrders.getInt(1), allFood.toString(), allOrders.getInt(2)});
             }
         } catch(Exception e){
             System.err.println(e);
         } finally{
             try { statement.close(); } catch (Exception e) { }
-            try { getMenu.close(); } catch (Exception e) { }
+            try { getOrderID.close(); } catch (Exception e) { }
+            try { getFood.close(); } catch (Exception e) { }
+            try { getFromMenu.close(); } catch (Exception e) { }
 			try { conn.close(); } catch (Exception e) { }
         }
 

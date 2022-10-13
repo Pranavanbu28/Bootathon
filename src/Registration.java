@@ -143,10 +143,10 @@ public class Registration extends JFrame{
 		add(backButton);
 
 		setLayout(null);
-		setLocationRelativeTo(null);
-		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500,550);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
 	}
 
 	public static boolean regiserUser(User user) {

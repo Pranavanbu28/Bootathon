@@ -91,11 +91,9 @@ public class AddFoodMenu extends JFrame{
 		add(backButton);
 		
 		setLayout(null);
-		setLocationRelativeTo(null);
-		setVisible(true);
 		setSize(400, 300);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		
+		setVisible(true);
 	}
 }

@@ -89,6 +89,7 @@ public class Login{
 	    frame.add(login);
 	    frame.setSize(500,400);  
 	    frame.setLayout(null);  
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setVisible(true);  
 	    frame.setVisible(true);  	
