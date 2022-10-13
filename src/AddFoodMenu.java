@@ -1,0 +1,99 @@
+import java.awt.*;
+import java.sql.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+public class AddFoodMenu extends JFrame{
+	AddFoodMenu(User currentUser){
+		Font  f1  = new Font(Font.DIALOG,  Font.BOLD, 16);
+		
+		JLabel title = new JLabel("Add Food");
+		title.setBounds(180, 40, 110, 20);
+		title.setFont(f1);
+		add(title);
+		
+		JLabel foodName = new JLabel("Food Name:");
+		foodName.setBounds(100, 75, 100, 30);
+		add(foodName);
+		
+		JTextField nameInput = new JTextField();
+		nameInput.setBounds(220, 75, 100, 30);
+		add(nameInput);
+
+		JLabel foodPrice = new JLabel("Price:");
+		foodPrice.setBounds(100, 125, 100, 30);
+		add(foodPrice);
+		
+		JTextField priceInput = new JTextField();
+		priceInput.setBounds(220, 125, 100, 30);
+		add(priceInput);
+
+		JButton addFood = new JButton("Add");
+		addFood.setBounds(80, 190, 100, 40);
+		add(addFood);
+		addFood.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Connection conn = null;
+				Statement statement = null;
+				PreparedStatement insertValue = null;
+				PreparedStatement checkValue = null;
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_management","root","magesh123");
+					
+					String checkQuery = "select count(*) from menu where food_name = ?";
+					checkValue = conn.prepareStatement(checkQuery); 
+					checkValue.setString(1, nameInput.getText());
+					ResultSet ifPresent = checkValue.executeQuery();
+					ifPresent.next();
+					if(ifPresent.getInt(1)==0){
+						statement = conn.createStatement();
+						String rowCount = "select count(*) from Menu";
+						ResultSet totalcount = statement.executeQuery(rowCount);
+						totalcount.next();
+						int count = totalcount.getInt(1);
+
+						String insertquery = "insert into Menu values (?,?,?)";
+						insertValue = conn.prepareStatement(insertquery); 
+						insertValue.setInt(1, count);
+						insertValue.setString(2, nameInput.getText());
+						insertValue.setInt(3, Integer.parseInt(priceInput.getText()));
+						insertValue.executeUpdate();
+						JOptionPane.showMessageDialog(null, "Added Successfully!");
+					} else {
+						String insertquery = "update menu set price = ? where food_name = ?";
+						insertValue = conn.prepareStatement(insertquery); 
+						insertValue.setInt(1, Integer.parseInt(priceInput.getText()));
+						insertValue.setString(2, nameInput.getText());
+						insertValue.executeUpdate();
+						JOptionPane.showMessageDialog(null, "Food Already Present in Menu, Updated Price Successfully");
+					}
+				}
+				catch(Exception e){
+					System.err.println(e);
+				} finally {
+					try {statement.close();} catch (Exception e) { }
+					try {insertValue.close();} catch (Exception e) { }
+					try {conn.close();} catch (Exception e) { }
+				}
+			}
+		}); 
+
+		JButton backButton = new JButton("Back");
+		backButton.setBounds(220, 190, 100, 40);
+		backButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+                new StaffPage(currentUser);
+                dispose();
+			}
+		});
+		add(backButton);
+		
+		setLayout(null);
+		setSize(400, 300);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+}

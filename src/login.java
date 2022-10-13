@@ -3,8 +3,8 @@ import java.util.regex.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class login{
-	login(){
+public class Login{
+	Login(){
 		JFrame frame;
 	    JLabel heading;
 	    JLabel username;
@@ -33,30 +33,32 @@ public class login{
 	    staffRadio.setBounds(230,200,200,30); 
 	    buttonGroup=new ButtonGroup();    
 	    login=new JButton("LOGIN");
-	    login.setBounds(190,250,100,30);
+	    login.setBounds(90,250,100,30);
 	    login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if(!Pattern.matches("[a-zA-Z_]{8,20}", usernameInput.getText())) {
-					JOptionPane.showMessageDialog(frame, "Invalid Username!", "Alert", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Username Format Invalid!", "Alert", JOptionPane.WARNING_MESSAGE);
 					username.setText("");
 					username.requestFocus();
 				}
-				else if(!Pattern.matches("^(?=.*[0-9])"+ "(?=.*[a-z])(?=.*[A-Z])"+ "(?=.*[@#$%^&+=])"+ "(?=\\S+$).{8,20}$", String.valueOf(passwordInput.getPassword()))) {
-					JOptionPane.showMessageDialog(frame, "Invalid Password!", "Alert", JOptionPane.WARNING_MESSAGE);
+				else if(!Pattern.matches("^(?=.*[\\d])"+ "(?=.*[a-z])(?=.*[A-Z])"+ "(?=.*[@#$%^&+=])"+ "(?=\\S+$).{8,20}$", String.valueOf(passwordInput.getPassword()))) {
+					JOptionPane.showMessageDialog(frame, "Password Format Invalid!", "Alert", JOptionPane.WARNING_MESSAGE);
 					passwordInput.setText("");
 					passwordInput.requestFocus();
 				}
-				else if(customerRadio.isSelected()==false && staffRadio.isSelected()==false) {
+				else if(!customerRadio.isSelected() && !staffRadio.isSelected()){
 					JOptionPane.showMessageDialog(frame, "Select an option!", "Alert", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					String name = usernameInput.getText(), pwd = new String(passwordInput.getPassword());
-					if(customerRadio.isSelected() && authorizeUser("customer", name, pwd)) {
-						new CustomerPage();
+					String name = usernameInput.getText();
+					String pwd = new String(passwordInput.getPassword());
+					User currentUser;
+					if(customerRadio.isSelected() && (currentUser = authorizeUser("customer", name, pwd))!=null) {
+						new CustomerPage(currentUser);
 						frame.dispose();
 					} 
-					else if(staffRadio.isSelected() && authorizeUser("staff", name, pwd)) {
-						new StaffPage();
+					else if(staffRadio.isSelected() && (currentUser = authorizeUser("staff", name, pwd))!=null) {
+						new StaffPage(currentUser);
 						frame.dispose();
 					} else {
 						JOptionPane.showMessageDialog(frame, "User is not registered!");
@@ -64,6 +66,16 @@ public class login{
 				}
 			}
 		}); 
+
+		JButton backButton = new JButton("Back");
+		backButton.setBounds(290,250,100,30);
+		backButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new Home();
+				frame.dispose();
+			}
+		});
+		frame.add(backButton);
 	    
 	    frame.add(heading);
 	    frame.add(username);
@@ -75,26 +87,57 @@ public class login{
 	    buttonGroup.add(customerRadio);
 	    buttonGroup.add(staffRadio);
 	    frame.add(login);
-	    frame.setSize(500,500);  
+	    frame.setSize(500,400);  
 	    frame.setLayout(null);  
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setVisible(true);  
 	    frame.setVisible(true);  	
 	}
-	public static boolean authorizeUser(String table, String name, String password) {
+	public static User authorizeUser(String table, String name, String password) {
+		PreparedStatement statement = null;
+		PreparedStatement statement2 = null;
+		Connection conn = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection conn = DriverManager.getConnection(
-		        "jdbc:mysql://localhost:3306/Restaurant_Management","root", "passwood");
-		    Statement statement = conn.createStatement();
-		    ResultSet rs = statement.executeQuery("select count(*) from "+table+" where username = "+name+" & password = "+password);
+		    conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_management","root", "magesh123");
+		    statement = conn.prepareStatement("select count(*), " + table +  "_id from "+table+" where " + table +  "_name = ? && password = ?");
+			statement.setString(1, name);
+			statement.setString(2, password);
+		    ResultSet rs = statement.executeQuery();
 		    rs.next();
-		    if(rs.getInt(1) == 1) return true;
-		    return false;
+		    if(rs.getInt(1) >= 1) {
+		    	int id = rs.getInt(2);
+		    	statement2 = conn.prepareStatement("select * from " + table +  " where " + table +  "_id = ?");
+		    	statement2.setInt(1, id);
+		    	ResultSet rs2 = statement2.executeQuery();
+		    	rs2.next();
+				String customerName = rs2.getString(2);
+				String pwd = rs2.getString(3);
+				String mobile = rs2.getString(4);
+				String mail = rs2.getString(5);
+				int addressID = rs2.getInt(6);
+
+				statement2.close();
+
+				statement2 = conn.prepareStatement("select * from address where address_id = ?");
+		    	statement2.setInt(1, addressID); 
+				rs2 = statement2.executeQuery();
+				rs2.next();
+				String address = rs2.getInt(2)  + "," + rs2.getString(3)  + "," + rs2.getString(4) + "," + rs2.getInt(5);
+		    	return new User(id, customerName, pwd, mobile, mail, address, table);
+		    }
+		    return null;
 		} catch(Exception e) {
-			return false;
+			e.printStackTrace();
+			return null;
+		} finally {
+			try { statement.close(); } catch (Exception e) { }
+			try { conn.close(); } catch (Exception e) { }
 		}
 	}
 	public static void main(String args[]){
-		new login();
+		new Login();
 	}
 	
 }
